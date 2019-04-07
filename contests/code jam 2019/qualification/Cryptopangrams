@@ -1,0 +1,76 @@
+#include<iostream>
+#include<string>
+#include<set>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+long long gcd(long long a, long long b) {
+	if (b == 0)
+		return a;
+	return gcd(b, a % b);
+}
+
+int main()
+{
+	set<long long> ans;
+	long long t,n,l;
+	string y;
+	cin>>t;
+	long long arr[102];
+	long long tests[102];
+
+	for(long long i=0;i<t;i++)
+	{
+		for(long long f=0;f<102;f++)
+		{
+			arr[f]=-1;
+		}
+		long long test,test2;
+		cin>>n>>l;
+		cin>>test;
+		tests[0]=test;
+		long long x;
+		for(long long j=1;j<=l;j++)
+		{
+			if(j<l) {
+				cin>>test2;
+				tests[j]=test2;
+			}
+			x = gcd(test,test2);
+			if(test!=test2) {
+				ans.insert(x);
+				ans.insert(test/x);
+				arr[j-1]=test/x;
+				arr[j]=x;
+			}
+			else {
+				if(arr[j-1]>0)
+				{
+					arr[j]=test/arr[j-1];
+					ans.insert(test/arr[j-1]);
+				}
+			}
+			test=test2;
+		}
+		for(long long k=l-1;k>-1;k--)
+		{
+			if(arr[k]<0) {
+				arr[k]=tests[k]/arr[k+1];
+			}
+		}
+		string Ans;
+		std::vector<long long> output(ans.begin(), ans.end());
+		for(long long j=0;j<=l;j++)
+		{
+			for(long long h=0;h<26;h++)
+			{
+				if(output[h]==arr[j])
+					Ans+=('A'+h);
+			}
+		}
+		cout<<"Case #"<<i+1<<": "<<Ans<<endl;
+		ans.clear();
+	}
+	return 0;
+}
