@@ -1,0 +1,53 @@
+function roadsAndLibraries(n, c_lib, c_road, cities) {
+    if (c_lib <= c_road || cities.length === 0) {
+        return c_lib * n;
+    }
+    let connections = {};
+    let visited = [];
+    // Store Graph
+    cities.forEach(el => {
+        if (connections[el[0]] === undefined) {
+            connections[el[0]] = [];
+        } 
+        connections[el[0]].push(el[1]);
+        if (connections[el[1]] === undefined) {
+            connections[el[1]] = [];
+        }
+        connections[el[1]].push(el[0]);
+    });
+    let stack = [1];
+    let ans = 0;
+    let counter = n;
+    for (let i = 0; i <= counter; i++) {
+        visited.push(false);
+    }
+    visited[1] = true;
+    while (counter > 1) {
+        while (stack.length !== 0) {
+            let head = stack.pop().toString();
+            if(connections[head]!== undefined) {
+            connections[head].forEach(el => {
+                if (visited[el] === false) {
+                    stack.push(el);
+                    visited[el] = true;
+                    ans += c_road;
+                    counter--;
+                }
+            });
+            }   
+        }
+        ans += c_lib;
+        for (let i = 1; i <= visited.length; i++){
+            if (visited[i] === false) {
+                stack.push(i);
+                counter--;
+                if (counter === 1) {
+                    ans += c_lib;
+                }
+                visited[i] = true;
+                break;
+            }   
+        } 
+    }
+    return ans;
+}
