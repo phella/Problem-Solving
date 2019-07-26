@@ -1,0 +1,47 @@
+// Complete the formingMagicSquare function below.
+function formingMagicSquare(s) {
+    let minAns =[999999] ;
+    let arr = [[2 , 9, 4] ,[7 ,5, 3] ,[6 ,1 ,8]];
+    for(let i = 0;i<2;i++) {
+        calcAns(s,arr,minAns);
+        swap(arr,0,2);
+        calcAns(s,arr,minAns);
+        swap(arr[0],0,2);
+        swap(arr[1],0,2);
+        swap(arr[2],0,2);
+        calcAns(s,arr,minAns);
+        swap(arr,0,2);
+        calcAns(s,arr,minAns);
+
+        let temp = arr[0][0];
+        arr[0][0] = arr[2][2];
+        arr[2][2] = temp;
+        temp = arr[0][1];
+        arr[0][1] = arr[1][2];
+        arr[1][2] = temp;
+        temp = arr[1][0];
+        arr[1][0]=arr[2][1];
+        arr[2][1]=temp;
+    }
+
+    return minAns[0];
+}
+
+function calcAns(s,arr,minAns){
+    console.log(arr);
+    let ans = 0;
+    for(let j = 0 ; j<3 ; j++ ) {
+        for(let k =0;k<3;k++) {
+            ans += Math.abs(s[j][k]-arr[j][k]);
+        }
+    }
+    if(ans<minAns[0]) {
+        minAns[0] = ans;
+    }
+}  
+
+function swap(arr,index1,index2) {
+    const temp = arr[index1];
+    arr[index1] = arr[index2];
+    arr[index2] = temp;
+}
