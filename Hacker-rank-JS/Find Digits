@@ -1,0 +1,14 @@
+function findDigits(n) {
+    const string = n.toString();
+    let chars = [];
+    let ans = 0;
+    for (let i = 0; i < string.length; i++){
+        chars.push(+string[i]);
+    }
+    for (let i = 0; i < chars.length; i++) { 
+            if (n % chars[i] === 0) {
+                ans++
+            }
+    }
+    return ans;
+}
