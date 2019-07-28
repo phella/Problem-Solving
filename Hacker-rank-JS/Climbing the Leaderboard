@@ -1,0 +1,26 @@
+function climbingLeaderboard(scores, alice) {
+    let counter = 0;
+    let counter2 = 0;
+    let n = scores.length;
+    let n2 = n;
+    for (let i = 0; i < scores.length-1; i++) {
+        if (scores[i] === scores[i + 1]) {
+            n2--;
+        }
+    }
+    const ans = [];
+    scores = scores.reverse();
+    for (let i = 0; i < alice.length; i++) {
+        while (alice[i] >= scores[counter]) {
+            if (counter-1 > -1 && scores[counter] === scores[counter - 1]) {
+                counter2--;
+            }
+            counter++;
+            counter2++;
+        }
+        let newAns = n2 - counter2+1 ;
+        newAns = (newAns <= 0) ? 1 : newAns; 
+        ans.push(newAns);
+    }
+    return ans;
+}
