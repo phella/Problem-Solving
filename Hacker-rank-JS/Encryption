@@ -1,0 +1,18 @@
+function encryption(s) {
+    let newS = '';
+    for (let i = 0; i < s.length; i++){
+        if (s[i] !== ' ') {
+            newS += s[i];
+        }
+    } 
+    const rows = Math.floor(Math.sqrt(newS.length)); 
+    const cols = Math.ceil(Math.sqrt(newS.length));
+    let ans = '';
+    for (let i = 0; i < cols; i++){
+        for (let j = 0; j+i < newS.length; j+=cols){
+            ans += newS[i + j];
+        }
+        ans += ' ';
+    } 
+    return ans;
+}
