@@ -6,6 +6,7 @@ struct item {
 	int m,c;
 };
 
+// Complexity O( nlog(n) ) in building tree and O( log(n) ) modyfing and retreving
 struct segtree {
 	
 	int size;
